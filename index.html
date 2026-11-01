@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cash Clarity Bookkeeping | Clean Books and a 90-Day Cash Forecast</title>
+<meta name="description" content="Monthly bookkeeping and cash flow forecasting for local businesses.">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f4f8f7; --surface:#ffffff; --text:#0f2230; --muted:#4f6470; --border:#d9e5e3;
+  --emerald:#0f9d76; --blue:#2563eb; --gold:#d99a1e; --btn-text:#ffffff;
+  --emerald-soft:#e2f6ef; --blue-soft:#e4ecfd; --gold-soft:#fbf0d6;
+  --hero1:#08202e; --hero2:#0b3d3a; --hero3:#0f6b57; --hero-text:#f1faf7; --hero-muted:#b6d3ca;
+  --accent-light:#4ee3b0; --gold-light:#f7c75a;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#08141b; --surface:#0f1f29; --text:#e8f2f0; --muted:#97b0b3; --border:#1f3a43;
+    --emerald:#34d3a0; --blue:#7aa2ff; --gold:#f2bd4b; --btn-text:#06201a;
+    --emerald-soft:#12332c; --blue-soft:#16294d; --gold-soft:#3a2f12;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#08141b; --surface:#0f1f29; --text:#e8f2f0; --muted:#97b0b3; --border:#1f3a43;
+  --emerald:#34d3a0; --blue:#7aa2ff; --gold:#f2bd4b; --btn-text:#06201a;
+  --emerald-soft:#12332c; --blue-soft:#16294d; --gold-soft:#3a2f12;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--emerald),#14b88a);color:var(--btn-text);padding:13px 26px;border-radius:10px;font-weight:700;text-decoration:none;box-shadow:0 8px 24px -8px rgba(15,157,118,.6);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.gold{background:linear-gradient(135deg,#f7c75a,#e8a52c);color:#2a1d00;box-shadow:0 8px 24px -8px rgba(232,165,44,.6)}
+.btn.sm{padding:9px 18px;font-size:.92rem}
+
+/* Hero */
+.hero{background:radial-gradient(900px 400px at 85% 10%,rgba(78,227,176,.25),transparent 60%),linear-gradient(135deg,var(--hero1),var(--hero2) 55%,var(--hero3));color:var(--hero-text);padding-bottom:72px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0;gap:12px}
+.brand{font-weight:800;font-size:1.2rem;letter-spacing:-.01em}
+.brand span{color:var(--accent-light)}
+.hero-grid{display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:center;padding-top:40px}
+.eyebrow{display:inline-block;color:var(--gold-light);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;border:1px solid rgba(247,199,90,.4);padding:5px 12px;border-radius:999px}
+h1{font-size:clamp(2.1rem,5vw,3.3rem);line-height:1.1;margin:18px 0;letter-spacing:-.025em}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent-light),var(--gold-light));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:1.1rem;color:var(--hero-muted);margin:0 0 28px;max-width:52ch}
+
+/* Mock forecast card */
+.mock{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:22px;backdrop-filter:blur(8px)}
+.mock-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.mock-title{font-weight:700}
+.pill{background:rgba(78,227,176,.2);color:var(--accent-light);font-size:.78rem;font-weight:700;padding:4px 10px;border-radius:999px}
+.mock small{color:var(--hero-muted)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:130px;margin:18px 0 8px}
+.bars i{flex:1;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,var(--accent-light),#0f9d76)}
+.bars i.warn{background:linear-gradient(180deg,var(--gold-light),#c98a14)}
+.legend{display:flex;justify-content:space-between;color:var(--hero-muted);font-size:.75rem}
+
+/* Stats */
+.stats{margin-top:-36px;position:relative}
+.stats .wrap{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;box-shadow:0 14px 30px -18px rgba(8,32,46,.35)}
+.stat b{display:block;font-size:1.9rem;letter-spacing:-.02em}
+.stat:nth-child(1) b{color:var(--emerald)} .stat:nth-child(2) b{color:var(--blue)} .stat:nth-child(3) b{color:var(--gold)}
+.stat span{color:var(--muted);font-size:.92rem}
+
+section{padding:64px 0}
+h2{font-size:1.8rem;margin:0 0 8px;letter-spacing:-.015em}
+.sub{color:var(--muted);margin:0 0 34px;max-width:60ch}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;border-top:4px solid var(--c);transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.card.e{--c:var(--emerald);--s:var(--emerald-soft)} .card.b{--c:var(--blue);--s:var(--blue-soft)} .card.g{--c:var(--gold);--s:var(--gold-soft)}
+.ico{width:46px;height:46px;border-radius:12px;background:var(--s);display:grid;place-items:center;margin-bottom:14px}
+.ico svg{width:24px;height:24px;stroke:var(--c);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin:0 0 8px;font-size:1.1rem}
+.card p{margin:0;color:var(--muted)}
+.num{width:36px;height:36px;border-radius:50%;background:var(--c);color:var(--btn-text);display:grid;place-items:center;font-weight:800;margin-bottom:14px}
+
+.tags{display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:0;list-style:none}
+.tags li{padding:9px 18px;border-radius:999px;font-weight:600;font-size:.95rem;border:1px solid var(--border);background:var(--surface)}
+.tags li:nth-child(3n+1){background:var(--emerald-soft)} .tags li:nth-child(3n+2){background:var(--blue-soft)} .tags li:nth-child(3n){background:var(--gold-soft)}
+
+.cta-box{background:radial-gradient(600px 300px at 20% 0%,rgba(247,199,90,.2),transparent 60%),linear-gradient(135deg,var(--hero1),var(--hero2) 60%,var(--hero3));color:var(--hero-text);border-radius:22px;padding:56px 24px;text-align:center}
+.cta-box h2{color:var(--hero-text)}
+.cta-box .sub{color:var(--hero-muted);margin:0 auto 26px}
+.mail{display:block;margin-top:18px;color:var(--gold-light);font-weight:700;overflow-wrap:anywhere}
+footer{padding:10px 0 32px;color:var(--muted);font-size:.85rem;text-align:center}
+footer p{margin:4px 0}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">Cash <span>Clarity</span></div>
+      <a class="btn sm gold" href="#contact">Get in touch</a>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Bookkeeping for local businesses</span>
+        <h1>Know your cash <em>before</em> it surprises you.</h1>
+        <p class="lead">We keep your books clean and show you every month how much cash you will have over the next 90 days, so rent, payroll, and taxes never catch you off guard.</p>
+        <a class="btn" href="mailto:ethancodetaub@gmail.com?subject=Free%20cash%20flow%20check-up">Book a free cash flow check-up</a>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-top"><span class="mock-title">13-week cash forecast</span><span class="pill">● Cash status: Green</span></div>
+        <small>Sample illustration</small>
+        <div class="bars">
+          <i style="height:62%"></i><i style="height:68%"></i><i style="height:74%"></i><i style="height:70%"></i><i style="height:80%"></i><i style="height:86%"></i><i class="warn" style="height:48%"></i><i style="height:58%"></i><i style="height:72%"></i><i style="height:78%"></i><i style="height:84%"></i><i style="height:90%"></i><i style="height:95%"></i>
+        </div>
+        <div class="legend"><span>Week 1</span><span>Week 13</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>13 weeks</b><span>of forward cash visibility</span></div>
+    <div class="stat"><b>30 min</b><span>monthly review call</span></div>
+    <div class="stat"><b>1 week</b><span>to get fully set up</span></div>
+  </div>
+</div>
+
+<main>
+  <section>
+    <div class="wrap">
+      <h2>What we do</h2>
+      <p class="sub">Simple, reliable financial upkeep so you can focus on running your business.</p>
+      <div class="grid">
+        <div class="card e"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg></div><h3>Fresh Start cleanup</h3><p>We sort out past transactions, separate business and personal spending, and set up your accounting software the right way.</p></div>
+        <div class="card b"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div><h3>Monthly bookkeeping</h3><p>Transactions categorized, accounts reconciled, and a clear monthly profit and loss report delivered on time.</p></div>
+        <div class="card g"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div><h3>Cash Clarity forecast</h3><p>A rolling 13-week cash forecast, a monthly review call, invoice follow-up reminders, and a tax set-aside number.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="sub">Getting started is quick and low-effort on your end.</p>
+      <div class="grid">
+        <div class="card e"><div class="num">1</div><h3>Free check-up</h3><p>We review your last three months and share one useful insight, no strings attached.</p></div>
+        <div class="card b"><div class="num">2</div><h3>Onboarding</h3><p>You give us read-only access to your bank and software, plus a short intake form.</p></div>
+        <div class="card g"><div class="num">3</div><h3>Monthly rhythm</h3><p>Books closed early each month, followed by a 30-minute call to walk through your numbers.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Who we help</h2>
+      <p class="sub">Owner-run businesses with 1 to 15 employees.</p>
+      <ul class="tags">
+        <li>Restaurants and cafes</li><li>Contractors and trades</li><li>Salons and barbershops</li><li>Gyms and studios</li><li>Small retail shops</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-box">
+        <h2>Ready to see what’s coming?</h2>
+        <p class="sub">Send a short note about your business and we will set up your free 20-minute cash flow check-up.</p>
+        <a class="btn gold" href="mailto:ethancodetaub@gmail.com?subject=Free%20cash%20flow%20check-up">Email us</a>
+        <a class="mail" href="mailto:ethancodetaub@gmail.com">ethancodetaub@gmail.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Cash Clarity Bookkeeping. All rights reserved.</p>
+    <p>Bookkeeping services only. We do not provide tax, legal, or investment advice.</p>
+  </div>
+</footer>
+</body>
+</html>
